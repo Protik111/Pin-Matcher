@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input class="form-control" type="text" id="generatedValue">
+                    <button class="generate-btn" id="generateButton">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input class="form-control" type="text" id="inputNumber">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div class="button" id="btn7">7</div>
+                              <div class="button" id="btn8">8</div>
+                              <div class="button" id="btn9">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" id="btn4">4</div>
+                              <div class="button" id="btn5">5</div>
+                              <div class="button" id="btn6">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" id="btn1">1</div>
+                              <div class="button" id="btn2">2</div>
+                              <div class="button" id="btn3">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button" id="delete"><</div>
+                                <div class="button" id="btn0">0</div>
+                                <div class="button" id="clear">C</div>
+                            </div>
+                            <div>
+                                <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+                                <p class="action-left">3 try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section" id="notify-part">
+            <p class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+
+    <script>
+
+        //random number generating
+        document.getElementById('generateButton').addEventListener('click',function(){
+            var randomNum = Math.random() * (8999+1)+1000;
+            var output = Math.round(randomNum);
+            document.getElementById('generatedValue').value= output;
+            
+        })
+
+
+        function buttonClick(id){
+            document.getElementById(id).addEventListener('click', function(){
+            showInput(id);
+            })
+        }
+
+        buttonClick('btn7');
+        buttonClick('btn8');
+        buttonClick('btn9');
+        buttonClick('btn4');
+        buttonClick('btn5');
+        buttonClick('btn6');
+        buttonClick('btn3');
+        buttonClick('btn2');
+        buttonClick('btn1');
+        buttonClick('btn0');
+
+        function showInput(id){
+            const values = document.getElementById(id).innerText;
+            var inputedValue = document.getElementById('inputNumber').value;
+            document.getElementById('inputNumber').value =inputedValue + values;
+        }
+
+        //showing notify section by matching input values
+        document.getElementById('submitBtn').addEventListener('click', function(){
+            var generatedInput = document.getElementById('generatedValue').value;
+            var typedInput = document.getElementById('inputNumber').value;
+            if(generatedInput==typedInput){
+                const notifyShow = document.getElementById('notify-part');
+                notifyShow.style.display = "block";
+            }
+        })
+
+        //clearing input values
+        document.getElementById('clear').addEventListener('click', function(){
+            document.getElementById('inputNumber').value = null;
+        })
+
+        //deleting value one by one
+        document.getElementById('delete').addEventListener('click', function(){
+            const deleteInput = document.getElementById('inputNumber').value;
+            const currentInput = deleteInput.substring(0, deleteInput.length-1);
+            document.getElementById('inputNumber').value = currentInput;
+            
+        })
+
+        
+    </script>
+</body>
+</html>
