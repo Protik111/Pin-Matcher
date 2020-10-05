@@ -50,8 +50,8 @@
             </div>
         </div>
         <div class="notify-section" id="notify-part">
-            <p class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+            <p class="notify" id="notifyNo">❌ Pin Didn't Match, Please try again</p>
+            <p class="notify" id="notifyYes">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
 
@@ -94,8 +94,11 @@
             var generatedInput = document.getElementById('generatedValue').value;
             var typedInput = document.getElementById('inputNumber').value;
             if(generatedInput==typedInput){
-                const notifyShow = document.getElementById('notify-part');
+                const notifyShow = document.getElementById('notifyYes');
                 notifyShow.style.display = "block";
+            }else{
+                var notifyShow2 = document.getElementById('notifyNo');
+                notifyShow2.style.display = "block";
             }
         })
 
